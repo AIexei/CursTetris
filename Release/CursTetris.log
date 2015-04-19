@@ -1,0 +1,16 @@
+﻿  Figures.cpp
+  main.cpp
+  Painter.cpp
+  Screen.cpp
+  Создание кода
+  Создание кода завершено
+glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
+glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
+glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
+glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
+glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
+glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
+glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
+glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
+glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
+C:\Users\Алексей\Documents\Visual Studio 2012\Projects\CursTetris\Release\CursTetris.exe : fatal error LNK1281: Не удается создать образ SAFESEH.
