@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Painter.h"
 #include <stdlib.h> 
+#include <iostream>
 
 
 #define RANDOM_FIGURE static_cast <Figures::Name> (rand () % 10)
@@ -8,7 +9,8 @@
 
 //...
 Game::Game () : CurrentFigure (RANDOM_FIGURE) {
-	HighScore = 0;
+	freopen("HIGHSCORE.txt","r",stdin);
+	std::cin >> HighScore;
 	Score = 0;
 }
 
@@ -38,8 +40,15 @@ void Game::Tick () {
 		Score += GameScreen.DeletingFullLines () * (Level + 1);
 
 		CurrentFigure = Figures (RANDOM_FIGURE);
-		if (GameScreen.Clash (CurrentFigure)) 
+		if (GameScreen.Clash (CurrentFigure)) { 
+			if (Score > HighScore) {
+				freopen("HIGHSCORE.txt","w",stdout);
+				std::cout << Score;
+				HighScore = Score;
+			}
+
 			Restart ();
+		}
 		// score highscore
 	}
 }

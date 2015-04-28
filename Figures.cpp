@@ -2,6 +2,7 @@
 #include "Painter.h"
 #include "Screen.h"
 
+
 Figures::Figures (Name MyName) {
 	FigureName = MyName;
 	x = 3;
@@ -165,4 +166,3 @@ int Figures::Get_x () {
 int Figures::Get_y () {
 	return y;
 }
-

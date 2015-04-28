@@ -23,7 +23,7 @@ void Initialize () {
 	// set a type of matrix
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity ();
-	glOrtho (0, (Screen::WIDTH * Screen::CELL_SIZE), (Screen::HEIGHT * Screen::CELL_SIZE), 0, -1, 1);
+	glOrtho (0, (Screen::WIDTH * Screen::CELL_SIZE), (Screen::HEIGHT * Screen::CELL_SIZE) , 0, -1, 1);
 }
 
 
@@ -31,7 +31,7 @@ void Initialize () {
 void Timer (int) {
 	MyGame.Tick ();
 	Display ();
-	glutTimerFunc (100 * (10 - MyGame.GetLevel ()), Timer, 0);
+	glutTimerFunc (30 * (10 - MyGame.GetLevel ()), Timer, 0);
 }
 
 
@@ -58,6 +58,8 @@ void KeyPressed (int Key, int x, int y) {
 		break;
 	case GLUT_KEY_DOWN :
 		MyGame.KeyEvent (Game::DOWN);
+		break;
+	case GLUT_KEY_F1 :
 		break;
 	}
 
