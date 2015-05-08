@@ -12,7 +12,7 @@ typedef struct RGB {
 	float Blue;
 };
 
-// днаюбхрэ жберю дн 10 ьрсй
+
 enum Color {RED, WHITE, 
 			PINK, BLUE, 
 		    GREEN, YELLOW, 

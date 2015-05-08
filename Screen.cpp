@@ -24,6 +24,8 @@ void Screen::Draw (Painter MyPainter) {
 			}
 		}
 	}
+
+
 }
 
 
@@ -67,7 +69,7 @@ bool Screen::Clash (Figures MyFigure) {
 				// checking for collisions with the walls and the fallen figures
 				if (Field_x < 0 ||
 					Field_x >= WIDTH ||
-					Field_y < 0 || // ????
+					Field_y < 0 ||
 					Field_y >= HEIGHT) return true;
 
 				if (Field [Field_y][Field_x].Value) 

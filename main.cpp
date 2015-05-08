@@ -1,11 +1,23 @@
 #include <glut.h>
 #include <time.h>
 #include <algorithm>
+#include <string.h>
 #include "Painter.h"
 #include "Game.h"
 
 
 Game MyGame;
+bool Pause = true;
+
+
+void RenderString (float x, float y, char *s) {
+	glColor3f (1, 0, 0);
+	glRasterPos2f (x, y);
+
+	for (char *text = s; *text != '\0'; text++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *text);
+	}
+}
 
 
 void Display () {
@@ -13,6 +25,16 @@ void Display () {
 	glClear(GL_COLOR_BUFFER_BIT);
 	Painter MyPainter;
 	MyGame.Draw (MyPainter);
+
+	glBegin (GL_LINES);
+	glColor3f (1, 1 , 1);
+	glVertex2d ((Screen::WIDTH * Screen::CELL_SIZE) , 0);
+	glVertex2d ((Screen::WIDTH * Screen::CELL_SIZE)  , Screen::HEIGHT * Screen::CELL_SIZE);
+	glEnd ();
+
+
+	RenderString (50, 50, "poshel naher , podonok ushastii");
+
 	glutSwapBuffers();
 }
 
@@ -23,7 +45,7 @@ void Initialize () {
 	// set a type of matrix
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity ();
-	glOrtho (0, (Screen::WIDTH * Screen::CELL_SIZE), (Screen::HEIGHT * Screen::CELL_SIZE) , 0, -1, 1);
+	glOrtho (0, (Screen::WIDTH * Screen::CELL_SIZE) * 1.7, (Screen::HEIGHT * Screen::CELL_SIZE) , 0, -1, 1);
 }
 
 
@@ -60,6 +82,7 @@ void KeyPressed (int Key, int x, int y) {
 		MyGame.KeyEvent (Game::DOWN);
 		break;
 	case GLUT_KEY_F1 :
+		Pause = !Pause;
 		break;
 	}
 
@@ -72,15 +95,17 @@ int main (int argc, char  **argv) {
 	srand (time (NULL)); 
 	glutInit (&argc, argv);
 	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB);
-	glutInitWindowSize (Screen::WIDTH * 40, Screen::HEIGHT * 40);
+	glutInitWindowSize (5 * Screen::WIDTH * Screen::CELL_SIZE * 1.7, 5 * Screen::HEIGHT * Screen::CELL_SIZE);
 	glutInitWindowPosition (400, 50);
 	// 
 	glutCreateWindow ("Tetris");
 	glutDisplayFunc (Display);
 	glutSpecialFunc (KeyPressed);
 	glutMouseFunc (MousePressed);
-	Timer (0);
+	if (Pause) Timer (0);
 	Initialize ();
 	glutMainLoop ();
 	return 0;
 }
+
+// меню. 2 режима игры. 
