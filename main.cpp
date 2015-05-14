@@ -6,34 +6,25 @@
 #include "Game.h"
 
 
-Game MyGame;
-bool Pause = true;
+#define RADIX 10
 
 
-void RenderString (float x, float y, char *s) {
-	glColor3f (1, 0, 0);
-	glRasterPos2f (x, y);
-
-	for (char *text = s; *text != '\0'; text++){
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *text);
-	}
-}
+Game Tetris;
+Painter MyPainter;
+bool Pause = false;
 
 
 void Display () {
 	// paint the background
-	glClear(GL_COLOR_BUFFER_BIT);
-	Painter MyPainter;
-	MyGame.Draw (MyPainter);
+	glClear (GL_COLOR_BUFFER_BIT);
 
-	glBegin (GL_LINES);
-	glColor3f (1, 1 , 1);
-	glVertex2d ((Screen::WIDTH * Screen::CELL_SIZE) , 0);
-	glVertex2d ((Screen::WIDTH * Screen::CELL_SIZE)  , Screen::HEIGHT * Screen::CELL_SIZE);
-	glEnd ();
+	MyPainter.PrintText (PREVIEW_WINDOW_X, 20, "The following figure", RED);
+	MyPainter.PrintText (PREVIEW_WINDOW_X, 75, Tetris.ShowLevel(), RED);
+	MyPainter.PrintText (PREVIEW_WINDOW_X, 87, Tetris.ShowLines(), RED);
+	MyPainter.PrintText (PREVIEW_WINDOW_X, 99, Tetris.ShowScore(), RED);
+	MyPainter.PrintText (PREVIEW_WINDOW_X, 111, Tetris.ShowHighScore(), RED);
 
-
-	RenderString (50, 50, "poshel naher , podonok ushastii");
+	Tetris.Draw (MyPainter);
 
 	glutSwapBuffers();
 }
@@ -42,18 +33,20 @@ void Display () {
 void Initialize () {
 	// set a background color
 	glClearColor (0, 0, 0, 1);
+
 	// set a type of matrix
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity ();
-	glOrtho (0, (Screen::WIDTH * Screen::CELL_SIZE) * 1.7, (Screen::HEIGHT * Screen::CELL_SIZE) , 0, -1, 1);
+	glOrtho (0, (Screen::WIDTH * Screen::CELL_SIZE) * 1.75, (Screen::HEIGHT * Screen::CELL_SIZE) , 0, -1, 1);
 }
 
 
 // this function is needed for animation (game)
 void Timer (int) {
-	MyGame.Tick ();
+	Tetris.Tick ();
 	Display ();
-	glutTimerFunc (30 * (10 - MyGame.GetLevel ()), Timer, 0);
+	if (!Pause)
+	glutTimerFunc (30 * (10 - Tetris.GetLevel ()), Timer, 0);
 }
 
 
@@ -70,19 +63,24 @@ void MousePressed (int Button, int State, int x, int y) {
 void KeyPressed (int Key, int x, int y) {
 	switch (Key) {
 	case GLUT_KEY_LEFT :
-		MyGame.KeyEvent (Game::LEFT);
+		if (!Pause)
+			Tetris.KeyEvent (Game::LEFT);
 		break;
 	case GLUT_KEY_RIGHT :
-		MyGame.KeyEvent (Game::RIGHT);
+		if (!Pause)
+			Tetris.KeyEvent (Game::RIGHT);
 		break;
 	case GLUT_KEY_UP :
-		MyGame.KeyEvent (Game::UP);
+		if (!Pause)	
+			Tetris.KeyEvent (Game::UP);
 		break;
 	case GLUT_KEY_DOWN :
-		MyGame.KeyEvent (Game::DOWN);
+		if (!Pause) 
+			Tetris.KeyEvent (Game::DOWN);
 		break;
 	case GLUT_KEY_F1 :
 		Pause = !Pause;
+		Timer(0);
 		break;
 	}
 
@@ -95,14 +93,13 @@ int main (int argc, char  **argv) {
 	srand (time (NULL)); 
 	glutInit (&argc, argv);
 	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB);
-	glutInitWindowSize (5 * Screen::WIDTH * Screen::CELL_SIZE * 1.7, 5 * Screen::HEIGHT * Screen::CELL_SIZE);
+	glutInitWindowSize (5 * Screen::WIDTH * Screen::CELL_SIZE * 1.75, 5 * Screen::HEIGHT * Screen::CELL_SIZE);
 	glutInitWindowPosition (400, 50);
-	// 
-	glutCreateWindow ("Tetris");
+	glutCreateWindow ("TETRIS");
 	glutDisplayFunc (Display);
 	glutSpecialFunc (KeyPressed);
 	glutMouseFunc (MousePressed);
-	if (Pause) Timer (0);
+	Timer (0);
 	Initialize ();
 	glutMainLoop ();
 	return 0;

@@ -11,6 +11,22 @@ Figures::Figures (Name MyName) {
 }
 
 
+void Figures::PriorShow (Painter MyPainter) {
+	Color FigureColor = (enum Color) FigureName;
+
+	for (int Area_y = 0; Area_y < 4; ++Area_y)
+		for (int Area_x = 0; Area_x < 4; ++Area_x) {
+			if (FigureArea(Area_x, Area_y)) {
+				MyPainter.Rectangle (Area_x * Screen::CELL_SIZE + PREVIEW_WINDOW_X + 1,
+									 Area_y * Screen::CELL_SIZE + PREVIEW_WINDOW_Y + 1,
+									 (Area_x + 1) * Screen::CELL_SIZE + PREVIEW_WINDOW_X - 1,
+									 (Area_y + 1) * Screen::CELL_SIZE + PREVIEW_WINDOW_Y - 1,
+									 FigureColor);
+			}
+		}
+}
+
+
 void Figures::DrawFigure (Painter MyPainter) {
 	Color FigureColor = (enum Color) FigureName;
 
@@ -24,7 +40,6 @@ void Figures::DrawFigure (Painter MyPainter) {
 									 FigureColor);
 			}
 		}
-		
 }
 
 
@@ -110,6 +125,14 @@ bool Figures::FigureArea (int Area_x, int Area_y) {
 			" 00 ",
 			"    "
 		},
+
+		// F
+		{
+			"  00",
+			" 00 ",
+			" 0  ",
+			"    "
+		}
 	};
 
 

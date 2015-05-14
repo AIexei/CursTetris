@@ -13,11 +13,11 @@ typedef struct RGB {
 };
 
 
-enum Color {RED, WHITE, 
+enum Color {RED, SKY, 
 			PINK, BLUE, 
-		    GREEN, YELLOW, 
-			LIME, BLACK,
-			VINOUS, GREY};
+		    ORANGE, YELLOW, 
+			CHOCOLATE, MAGENTA,
+			GREEN, WHITE, VIOLET};
 
 
 class Painter {
@@ -26,4 +26,12 @@ public:
 
 	// drawing rectangle on two opposite points
 	void Rectangle (int x1, int y1, int x2, int y2, Color);
+	
+	// drawing an unfilled rectangle
+	void EmptyRectangle (int x1, int y1, int x2, int y2, Color);
+	
+	// drawing line
+	void Line (int x1, int y1, int x2, int y2, Color);
+	void PrintText (int x, int y, char *text, Color);
+	//char *IntToStr (int value);
 };

@@ -1,16 +1,22 @@
+#pragma warning (disable : 4996)
+
 #include "Game.h"
 #include "Painter.h"
-#include <stdlib.h> 
+#include <stdlib.h>
+#include <string.h>
 #include <iostream>
 
+#define RANDOM_FIGURE static_cast <Figures::Name> (rand () % 11)
+#define RADIX 10
 
-#define RANDOM_FIGURE static_cast <Figures::Name> (rand () % 10)
-
+char String [100];
+char buf[5];
 
 //...
-Game::Game () : CurrentFigure (RANDOM_FIGURE) {
-	freopen("HIGHSCORE.txt","r",stdin);
-	std::cin >> HighScore;
+Game::Game () : CurrentFigure (RANDOM_FIGURE), NextFigure (RANDOM_FIGURE) {
+
+	Lines = 0;
+	Level = 0;
 	Score = 0;
 }
 
@@ -26,6 +32,7 @@ int Game::GetLevel () {
 void Game::Draw (Painter MyPainter) {
 	GameScreen.Draw (MyPainter);
 	CurrentFigure.DrawFigure (MyPainter);
+	NextFigure.PriorShow (MyPainter);
 }
 
 
@@ -37,16 +44,16 @@ void Game::Tick () {
 		CurrentFigure = Temp;
 	} else {
 		GameScreen.FallenFigure (CurrentFigure);
-		Score += GameScreen.DeletingFullLines () * (Level + 1);
+		Score += GameScreen.DeletingFullLines (Lines) * (Level + 1);
+		
+		if (Score > HighScore) {
+			HighScore = Score;
+		}
 
-		CurrentFigure = Figures (RANDOM_FIGURE);
-		if (GameScreen.Clash (CurrentFigure)) { 
-			if (Score > HighScore) {
-				freopen("HIGHSCORE.txt","w",stdout);
-				std::cout << Score;
-				HighScore = Score;
-			}
+		CurrentFigure = NextFigure;
+		NextFigure = Figures (RANDOM_FIGURE);
 
+		if (GameScreen.Clash (CurrentFigure)) {
 			Restart ();
 		}
 		// score highscore
@@ -58,6 +65,9 @@ void Game::Restart () {
 	GameScreen = Screen();
 	Score = 0;
 	Level = 0;
+	Lines = 0;
+	CurrentFigure = Figures (RANDOM_FIGURE);
+	NextFigure = Figures (RANDOM_FIGURE);
 }
 
 
@@ -77,4 +87,40 @@ void Game::KeyEvent (Direction CurrentDirection) {
 
 	if (! GameScreen.Clash (Temp)) 
 		CurrentFigure = Temp;
+}
+
+
+char* Game::ShowLevel () {
+	strcpy (String, "Level - ");
+	itoa (Level, buf, RADIX);
+	strcat (String, buf);
+
+	return String;
+}
+
+
+char* Game::ShowLines () {
+	strcpy (String, "Lines - ");
+	itoa (Lines, buf, RADIX);
+	strcat (String, buf);
+
+	return String;
+}
+
+
+char* Game::ShowScore () {
+	strcpy (String, "Score - ");
+	itoa (Score, buf, RADIX);
+	strcat (String, buf);
+
+	return String;
+}
+
+
+char* Game::ShowHighScore () {
+	strcpy (String, "High score - ");
+	itoa (HighScore, buf, RADIX);
+	strcat (String, buf);
+
+	return String;
 }

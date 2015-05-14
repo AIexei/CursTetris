@@ -34,11 +34,19 @@ public:
 	// function, which processes the pressing
 	void KeyEvent (Direction);
 
-private:		
+	//...
+	char* ShowLevel ();
+	char* ShowLines ();
+	char* ShowScore ();
+	char* ShowHighScore ();
+
+private:	
 	int Score;
 	int HighScore;
 	int Level;
+	int Lines;
 
 	Screen GameScreen;
 	Figures CurrentFigure;
+	Figures NextFigure;
 };

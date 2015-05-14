@@ -25,11 +25,18 @@ void Screen::Draw (Painter MyPainter) {
 		}
 	}
 
+	MyPainter.Line (WIDTH * CELL_SIZE , 0, 
+					WIDTH * CELL_SIZE, HEIGHT * CELL_SIZE, WHITE);
 
+	MyPainter.EmptyRectangle (PREVIEW_WINDOW_X, 
+							  PREVIEW_WINDOW_Y, 
+							  PREVIEW_WINDOW_X + 4 * CELL_SIZE, 
+							  PREVIEW_WINDOW_Y + 4 * CELL_SIZE, 
+							  WHITE);
 }
 
 
-int Screen::DeletingFullLines () {
+int Screen::DeletingFullLines (int &Lines) {
 	int CountFullLines = 0;
 
 	for (int y = 0; y < HEIGHT; ++y) {
@@ -44,6 +51,7 @@ int Screen::DeletingFullLines () {
 
 		if (IsFull) {
 			CountFullLines++;
+			Lines++;
 			// variable Above means line, which is above the full line
 			for (int Above = y - 1; Above >= 0; --Above)
 				for (int x = 0; x < WIDTH; ++x) 
@@ -85,6 +93,7 @@ bool Screen::Clash (Figures MyFigure) {
 void Screen::FallenFigure (Figures MyFigure) {
 	for (int y = 0; y < 4; ++y) 
 		for (int x = 0; x < 4; ++x) {
+
 			// these are coordinates of the area of our figure on the field
 			int Field_x = x + MyFigure.Get_x ();
 			int Field_y = y + MyFigure.Get_y ();
@@ -92,7 +101,8 @@ void Screen::FallenFigure (Figures MyFigure) {
 			if (Field_x >= 0 ||
 				Field_x < WIDTH ||
 				Field_y >= 0 ||
-				Field_y < HEIGHT) {					
+				Field_y < HEIGHT) {	
+
 					// if in the field cell is empty, and figure's cell is not empty,
 					// this cell are assigned properties of the figure's cell
 					if ((! Field [Field_y][Field_x].Value) && MyFigure.FigureArea (x,y)) {

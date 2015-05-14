@@ -14,6 +14,7 @@ public:
 	Figures (Name);
 	//Figures ();
 
+	void PriorShow (Painter);
 	void DrawFigure (Painter);
 
 	// dx and dy are offset in x and in y

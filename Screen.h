@@ -6,6 +6,9 @@
 #pragma once
 #pragma warning (disable : 4091)
 
+#define PREVIEW_WINDOW_X 92
+#define PREVIEW_WINDOW_Y 30
+
 typedef struct CellType {
 	bool Value;
 	enum Color CellColor;
@@ -28,7 +31,7 @@ public:
 
 	// check for a completed line and deleting
 	// function return count of full lines in order to score
-	int DeletingFullLines ();
+	int DeletingFullLines (int &Lines);
 	
 	// check collision with the wall or with pieces that have fallen
 	bool Clash (Figures);
