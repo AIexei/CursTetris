@@ -4,17 +4,18 @@
 #include "Painter.h"
 #include <stdlib.h>
 #include <string.h>
-#include <iostream>
 
-#define RANDOM_FIGURE static_cast <Figures::Name> (rand () % 11)
+#define RANDOM_FIGURE(A) static_cast <Figures::Name> (rand () % A)
 #define RADIX 10
 
+// this variables for ...
 char String [100];
 char buf[5];
 
 //...
-Game::Game () : CurrentFigure (RANDOM_FIGURE), NextFigure (RANDOM_FIGURE) {
-
+Game::Game (Mode M) : CurrentFigure (RANDOM_FIGURE(M)), NextFigure (RANDOM_FIGURE(M)) {
+	// read highscore
+	GameMode = M;
 	Lines = 0;
 	Level = 0;
 	Score = 0;
@@ -51,23 +52,23 @@ void Game::Tick () {
 		}
 
 		CurrentFigure = NextFigure;
-		NextFigure = Figures (RANDOM_FIGURE);
+		NextFigure = Figures (RANDOM_FIGURE(GameMode));
 
 		if (GameScreen.Clash (CurrentFigure)) {
-			Restart ();
+			Start ();
 		}
 		// score highscore
 	}
 }
 
 
-void Game::Restart () {
+void Game::Start () {
 	GameScreen = Screen();
 	Score = 0;
 	Level = 0;
 	Lines = 0;
-	CurrentFigure = Figures (RANDOM_FIGURE);
-	NextFigure = Figures (RANDOM_FIGURE);
+	CurrentFigure = Figures (RANDOM_FIGURE(GameMode));
+	NextFigure = Figures (RANDOM_FIGURE(GameMode));
 }
 
 

@@ -15,8 +15,9 @@ class Painter;
 class Game {
 public: 
 	enum Direction { UP, DOWN, LEFT, RIGHT};
+	enum Mode {CLASSIC = 7, ARCADE = 13};
 
-	Game ();
+	Game (Mode);
 
 	// function to calculate the level
 	// figures fall quickly on each of 7 levels
@@ -29,7 +30,7 @@ public:
 	void Tick ();
 
 	// function to start a new game
-	void Restart ();
+	void Start ();
 
 	// function, which processes the pressing
 	void KeyEvent (Direction);
@@ -46,6 +47,7 @@ private:
 	int Level;
 	int Lines;
 
+	Mode GameMode;
 	Screen GameScreen;
 	Figures CurrentFigure;
 	Figures NextFigure;

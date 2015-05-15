@@ -17,7 +17,9 @@ enum Color {RED, SKY,
 			PINK, BLUE, 
 		    ORANGE, YELLOW, 
 			CHOCOLATE, MAGENTA,
-			GREEN, WHITE, VIOLET};
+			GREEN, WHITE, 
+			VIOLET, OLIVE};
+//  add new colors
 
 
 class Painter {

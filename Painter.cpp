@@ -1,6 +1,5 @@
 #include <glut.h>
 #include <string>
-#include <sstream>
 #include "Painter.h"
 
 void Painter::Rectangle (int x1, int y1, int x2, int y2, Color MyColor) {
@@ -18,17 +17,18 @@ void Painter::Rectangle (int x1, int y1, int x2, int y2, Color MyColor) {
 void Painter::SetColor (Color MyColor) {
 	const RGB Colors [] = 
 	{
-		{0.9, 0, 0},         // red
-		{0, 0.75, 1},        // deep sky blue
-		{1, 0.08, 0.58},     // deep pink
-		{0, 1, 1},           // cyan
-		{1, 0.5, 0},         // dark orange
-		{1, 1, 0},           // yellow
-		{1, 0.5, 0.14},      // chocolate
-		{1, 0 , 1},			 // magenta
-		{0, 1, 0},			 // green
-		{1.0, 1.0, 1.0},     // white
-		{0.58, 0, 0.82}      // dark violet
+		{0.90, 0.00, 0.00},     // red
+		{0.00, 0.75, 1.00},     // deep sky blue
+		{1.00, 0.08, 0.58},     // deep pink
+		{0.00, 1.00, 1.00},     // cyan
+		{1.00, 0.50, 0.00},     // dark orange
+		{1.00, 1.00, 0.00},     // yellow
+		{1.00, 0.50, 0.14},     // chocolate
+		{1.00, 0.00, 1.00},		// magenta
+		{0.00, 1.00, 0.00},		// green
+		{1.00, 1.00, 1.00},     // white
+		{0.58, 0.00, 0.82},     // dark violet
+		{0.75, 1.00, 0.24}		// olive
 	};
 
 	// set the brush color

@@ -1,15 +1,15 @@
 #include <glut.h>
 #include <time.h>
-#include <algorithm>
-#include <string.h>
+#include <stdlib.h>
 #include "Painter.h"
 #include "Game.h"
 
-
+#define WINDOW_POSITION_X 300
+#define WINDOW_POSITION_Y 80
 #define RADIX 10
 
 
-Game Tetris;
+Game Tetris (Game::ARCADE);
 Painter MyPainter;
 bool Pause = false;
 
@@ -27,6 +27,13 @@ void Display () {
 	Tetris.Draw (MyPainter);
 
 	glutSwapBuffers();
+}
+
+
+void DisplayMenu () {
+	glClear (GL_COLOR_BUFFER_BIT);
+
+	glutSwapBuffers ();
 }
 
 
@@ -54,7 +61,9 @@ void Timer (int) {
 // the second argument indicates the condition of the mouse (pressed or not pressed)
 // and the third and fourth arguments are coordinates of the mouse
 void MousePressed (int Button, int State, int x, int y) {
-	//...
+	if (Button == GLUT_LEFT_BUTTON) {
+		// function for buttons
+	}
 }
 
 
@@ -80,7 +89,8 @@ void KeyPressed (int Key, int x, int y) {
 		break;
 	case GLUT_KEY_F1 :
 		Pause = !Pause;
-		Timer(0);
+		if (!Pause) 
+			Timer (0);
 		break;
 	}
 
@@ -94,9 +104,10 @@ int main (int argc, char  **argv) {
 	glutInit (&argc, argv);
 	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize (5 * Screen::WIDTH * Screen::CELL_SIZE * 1.75, 5 * Screen::HEIGHT * Screen::CELL_SIZE);
-	glutInitWindowPosition (400, 50);
+	glutInitWindowPosition (WINDOW_POSITION_X, WINDOW_POSITION_Y);
 	glutCreateWindow ("TETRIS");
 	glutDisplayFunc (Display);
+	glutDisplayFunc (DisplayMenu);
 	glutSpecialFunc (KeyPressed);
 	glutMouseFunc (MousePressed);
 	Timer (0);
@@ -104,5 +115,3 @@ int main (int argc, char  **argv) {
 	glutMainLoop ();
 	return 0;
 }
-
-// меню. 2 режима игры. 

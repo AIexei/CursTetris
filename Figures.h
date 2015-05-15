@@ -9,7 +9,7 @@ class Painter;
 class Figures {
 public:
 	// figures names that corresponding to a figures view
-	enum Name { O, S , T, Z, I, J, L, C, X, Q};
+	enum Name { O, S , T, Z, I, J, L, C, X, Q, F, P};
 
 	Figures (Name);
 	//Figures ();

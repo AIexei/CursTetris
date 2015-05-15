@@ -132,7 +132,16 @@ bool Figures::FigureArea (int Area_x, int Area_y) {
 			" 00 ",
 			" 0  ",
 			"    "
+		},
+		
+		// P
+		{
+			"  0 ",
+			" 00 ",
+			" 00 ",
+			"    "
 		}
+
 	};
 
 
