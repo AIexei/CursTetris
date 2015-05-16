@@ -68,8 +68,8 @@ void Painter::Line (int x1, int y1, int x2, int y2, Color LineColor) {
 
 
 void Painter::PrintText (int x, int y, char *text, Color TextColor) {
-	glRasterPos2d (x, y);
 	SetColor (TextColor);
+	glRasterPos2d (x, y);
 
 	for (char *s = text; *s != '\0'; s++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *s);

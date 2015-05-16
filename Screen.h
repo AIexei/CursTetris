@@ -1,6 +1,9 @@
 /*	Screen
  *  Gaming table's class 
  *  all drawn with the help of Painter
+ *
+ *  Copyright (c) Alexei Evlanov, 2015
+ *  All rights reserved
  */
 
 #pragma once

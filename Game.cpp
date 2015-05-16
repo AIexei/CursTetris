@@ -55,20 +55,26 @@ void Game::Tick () {
 		NextFigure = Figures (RANDOM_FIGURE(GameMode));
 
 		if (GameScreen.Clash (CurrentFigure)) {
-			Start ();
+			Start();
 		}
 		// score highscore
 	}
 }
 
 
-void Game::Start () {
+void Game::Start (Mode NewMode) {
 	GameScreen = Screen();
+	GameMode = NewMode;
 	Score = 0;
 	Level = 0;
 	Lines = 0;
 	CurrentFigure = Figures (RANDOM_FIGURE(GameMode));
 	NextFigure = Figures (RANDOM_FIGURE(GameMode));
+}
+
+
+void Game::Start () {
+	Start (GameMode);
 }
 
 

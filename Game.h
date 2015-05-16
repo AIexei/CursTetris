@@ -1,5 +1,8 @@
 /*	Game
  *	This class brings together all previous classes
+ *
+ *  Copyright (c) Alexei Evlanov, 2015
+ *  All rights reserved
  */
 
 #pragma once
@@ -15,7 +18,7 @@ class Painter;
 class Game {
 public: 
 	enum Direction { UP, DOWN, LEFT, RIGHT};
-	enum Mode {CLASSIC = 7, ARCADE = 13};
+	enum Mode {CLASSIC = 7, ARCADE = 12};
 
 	Game (Mode);
 
@@ -30,6 +33,7 @@ public:
 	void Tick ();
 
 	// function to start a new game
+	void Start (Mode);
 	void Start ();
 
 	// function, which processes the pressing

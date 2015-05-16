@@ -1,5 +1,8 @@
 /*	Figures
  *  class figures that will fall during a game 
+ *
+ *  Copyright (c) Alexei Evlanov, 2015
+ *  All rights reserved
  */
 
 #pragma once

@@ -1,5 +1,8 @@
 /*  Painter
  *	this class is intended only for drawing any graphic objects
+ *
+ *  Copyright (c) Alexei Evlanov, 2015
+ *  All rights reserved
  */
 
 #pragma once
