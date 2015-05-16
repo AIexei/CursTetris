@@ -11,6 +11,7 @@
 // because class Game has these types of variables
 #include "Screen.h"
 #include "Figures.h"
+#include <fstream>
 
 class Painter;
 
@@ -39,6 +40,8 @@ public:
 	// function, which processes the pressing
 	void KeyEvent (Direction);
 
+	void SaveScore();
+
 	//...
 	char* ShowLevel ();
 	char* ShowLines ();
@@ -46,8 +49,11 @@ public:
 	char* ShowHighScore ();
 
 private:	
+	std::fstream ScoreFile;
+
 	int Score;
-	int HighScore;
+	int HighScoreClassic;
+	int HighScoreArcade;
 	int Level;
 	int Lines;
 

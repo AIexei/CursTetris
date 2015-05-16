@@ -14,7 +14,11 @@ char buf[5];
 
 //...
 Game::Game (Mode M) : CurrentFigure (RANDOM_FIGURE(M)), NextFigure (RANDOM_FIGURE(M)) {
-	// read highscore
+	ScoreFile.open("HighScore.data", std::ios::in);
+	ScoreFile >> HighScoreArcade;
+	ScoreFile >> HighScoreClassic;
+	ScoreFile.close();
+
 	GameMode = M;
 	Lines = 0;
 	Level = 0;
@@ -25,7 +29,7 @@ Game::Game (Mode M) : CurrentFigure (RANDOM_FIGURE(M)), NextFigure (RANDOM_FIGUR
 //...
 int Game::GetLevel () {
 	if  (Level >= 7) return 7;
-	Level = Score / 10;
+	Level = Lines / 10;
 	return Level;
 }
 
@@ -47,17 +51,28 @@ void Game::Tick () {
 		GameScreen.FallenFigure (CurrentFigure);
 		Score += GameScreen.DeletingFullLines (Lines) * (Level + 1);
 		
-		if (Score > HighScore) {
-			HighScore = Score;
+		switch (GameMode) {
+		case ARCADE:
+			if (Score > HighScoreArcade) {
+				HighScoreArcade = Score;
+			}
+
+			break;
+		case CLASSIC:
+			if (Score > HighScoreClassic) {
+				HighScoreClassic = Score;
+			}
+
+			break;
 		}
 
 		CurrentFigure = NextFigure;
 		NextFigure = Figures (RANDOM_FIGURE(GameMode));
 
 		if (GameScreen.Clash (CurrentFigure)) {
+			SaveScore ();
 			Start();
 		}
-		// score highscore
 	}
 }
 
@@ -97,6 +112,13 @@ void Game::KeyEvent (Direction CurrentDirection) {
 }
 
 
+void Game::SaveScore () {
+	ScoreFile.open ("HighScore.data", std::ios::trunc | std::ios::out);
+	ScoreFile << HighScoreArcade << " " << HighScoreClassic;
+	ScoreFile.close();
+}
+
+
 char* Game::ShowLevel () {
 	strcpy (String, "Level - ");
 	itoa (Level, buf, RADIX);
@@ -126,7 +148,16 @@ char* Game::ShowScore () {
 
 char* Game::ShowHighScore () {
 	strcpy (String, "High score - ");
-	itoa (HighScore, buf, RADIX);
+	
+	switch (GameMode) {
+	case ARCADE:
+		itoa (HighScoreArcade, buf, RADIX);
+		break;
+	case CLASSIC:
+		itoa (HighScoreClassic, buf, RADIX);
+		break;
+	}
+	
 	strcat (String, buf);
 
 	return String;

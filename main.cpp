@@ -125,6 +125,7 @@ void MousePressed (int Button, int State, int x, int y) {
 		if ((x > 5 * 92) && (x < 5 * 124) && (y > 5 * 5) && (y < 5 * 14)) { 
 			ScreenType = COMMON;
 			DisplayMenu ();
+			Tetris.SaveScore ();
 		}
 
 		break;
