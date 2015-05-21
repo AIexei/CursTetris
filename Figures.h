@@ -12,10 +12,11 @@ class Painter;
 class Figures {
 public:
 	// figures names that corresponding to a figures view
-	enum Name { O, S , T, Z, I, J, L, C, X, Q, F, P};
+	enum Name {O, S, T, Z, I, J, L, C, X, Q, F, P, B, M, R, A};
+
+	Name FigureName;
 
 	Figures (Name);
-	//Figures ();
 
 	void PriorShow (Painter);
 	void DrawFigure (Painter);
@@ -23,7 +24,7 @@ public:
 	// dx and dy are offset in x and in y
 	void Move (int dx, int dy);
 
-	void Rotate (); //...	
+	void Rotate (); 	
 
 	// in this function coordinates Area_x and Area_y refer to the figure
 	// not to the field
@@ -31,7 +32,6 @@ public:
 
 	int Get_x ();
 	int Get_y ();
-	Name FigureName;
 
 private:
 	//Name FigureName;

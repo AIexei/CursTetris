@@ -17,11 +17,14 @@ typedef struct RGB {
 
 
 enum Color {RED, SKY, 
-			PINK, BLUE, 
+			PINK, CYAN, 
 		    ORANGE, YELLOW, 
 			CHOCOLATE, MAGENTA,
 			GREEN, WHITE, 
-			VIOLET, OLIVE};
+			VIOLET, OLIVE,
+			BLUE, SPRING,
+			VINOUS, KHAKI
+};
 //  add new colors
 
 
@@ -38,5 +41,4 @@ public:
 	// drawing line
 	void Line (int x1, int y1, int x2, int y2, Color);
 	void PrintText (int x, int y, char *text, Color);
-	//char *IntToStr (int value);
 };

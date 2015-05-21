@@ -6,15 +6,17 @@
 #include <string.h>
 
 #define RANDOM_FIGURE(A) static_cast <Figures::Name> (rand () % A)
+#define FRENZY_FIGURE rand() + rand() + 1
 #define RADIX 10
+#define FILE_NAME "HighScore.d"
 
-// this variables for ...
+// this variables needs to display text on the screen
 char String [100];
 char buf[5];
 
-//...
+
 Game::Game (Mode M) : CurrentFigure (RANDOM_FIGURE(M)), NextFigure (RANDOM_FIGURE(M)) {
-	ScoreFile.open("HighScore.data", std::ios::in);
+	ScoreFile.open(FILE_NAME, std::ios::in);
 	ScoreFile >> HighScoreArcade;
 	ScoreFile >> HighScoreClassic;
 	ScoreFile.close();
@@ -26,7 +28,6 @@ Game::Game (Mode M) : CurrentFigure (RANDOM_FIGURE(M)), NextFigure (RANDOM_FIGUR
 }
 
 
-//...
 int Game::GetLevel () {
 	if  (Level >= 7) return 7;
 	Level = Lines / 10;
@@ -113,7 +114,7 @@ void Game::KeyEvent (Direction CurrentDirection) {
 
 
 void Game::SaveScore () {
-	ScoreFile.open ("HighScore.data", std::ios::trunc | std::ios::out);
+	ScoreFile.open (FILE_NAME, std::ios::trunc | std::ios::out);
 	ScoreFile << HighScoreArcade << " " << HighScoreClassic;
 	ScoreFile.close();
 }

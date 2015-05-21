@@ -1,4 +1,5 @@
-#include <glut.h>
+#include <gl/glut.h>
+#include <gl/glAux.h>
 #include <time.h>
 #include <stdlib.h>
 #include "Game.h"
@@ -8,7 +9,7 @@
 #define WINDOW_POSITION_X 300
 #define WINDOW_POSITION_Y 80
 
-enum Type {COMMON, GAME_ARCADE, GAME_CLASSIC, GUIDANCE, CREDITS};
+enum Type {COMMON, GAME_ARCADE, GAME_CLASSIC, GAME_FRENZY, GUIDANCE, CREDITS};
 
 
 Game Tetris (Game::ARCADE);
@@ -20,14 +21,16 @@ bool Pause = false;
 void DisplayMenu () {
 	glClear (GL_COLOR_BUFFER_BIT);
 
-	Paint.EmptyRectangle (40, 15, 100, 30, GREEN);
-	Paint.EmptyRectangle (40, 40, 100, 55, GREEN);
-	Paint.EmptyRectangle (40, 65, 100, 80, GREEN);
+	Paint.EmptyRectangle (40, 10, 100, 25, GREEN);
+	Paint.EmptyRectangle (40, 30, 100, 45, GREEN);
+	Paint.EmptyRectangle (40, 50, 100, 65, GREEN);
+	Paint.EmptyRectangle (40, 70, 100, 85, GREEN);
 	Paint.EmptyRectangle (40, 90, 100, 105, GREEN);
 
-	Paint.PrintText (54, 24, "PLAY ARCADE ", GREEN);
-	Paint.PrintText (54, 49, "PLAY CLASSIC", GREEN);
-	Paint.PrintText (54, 74, "   GUIDANCE ", GREEN);
+	Paint.PrintText (54, 19, "PLAY CLASSIC", GREEN);
+	Paint.PrintText (54, 39, "PLAY ARCADE ", GREEN);
+	Paint.PrintText (54, 59, "PLAY FRENZY ", GREEN);
+	Paint.PrintText (54, 79, "   GUIDANCE ", GREEN);
 	Paint.PrintText (54, 99, "    CREDITS ", GREEN);
 
 	glutSwapBuffers ();
@@ -71,7 +74,7 @@ void DisplayCredits () {
 
 	Paint.PrintText (54, 24, "Developer : Alexei Evlanov", RED);
 	Paint.PrintText (54, 49, "Year of release : 2015", RED);
-	Paint.PrintText (54, 74, "Program version : 1.0 ", RED);
+	Paint.PrintText (54, 74, "Game version : 1.0 ", RED);
 
 	glutSwapBuffers ();
 }
@@ -96,19 +99,25 @@ void MousePressed (int Button, int State, int x, int y) {
 
 	switch (ScreenType) {
 	case COMMON :
-		if ((x > 5 * 40) && (x < 5 * 100) && (y > 5 * 15) && (y < 5 * 30)) { 
-			ScreenType = GAME_ARCADE;
-			Tetris.Start (Game::ARCADE);
+		if ((x > 5 * 40) && (x < 5 * 100) && (y > 5 * 10) && (y < 5 * 25)) { 
+			ScreenType = GAME_CLASSIC;
+			Tetris.Start (Game::CLASSIC);
 			Timer(0);
 		}
 
-		if ((x > 5 * 40) && (x < 5 * 100) && (y > 5 * 40) && (y < 5 * 55)) { 
-			ScreenType = GAME_CLASSIC;
-			Tetris.Start (Game::CLASSIC);
+		if ((x > 5 * 40) && (x < 5 * 100) && (y > 5 * 30) && (y < 5 * 45)) { 
+			ScreenType = GAME_ARCADE;
+			Tetris.Start (Game::ARCADE);
 			Timer (0);
 		}
 
-		if ((x > 5 * 40) && (x < 5 * 100) && (y > 5 * 65) && (y < 5 * 80)) { 
+		if ((x > 5 * 40) && (x < 5 * 100) && (y > 5 * 50) && (y < 5 * 65)) { 
+			ScreenType = GAME_FRENZY;
+			Tetris.Start (Game::FRENZY);
+			Timer (0);
+		}
+
+		if ((x > 5 * 40) && (x < 5 * 100) && (y > 5 * 70) && (y < 5 * 85)) { 
 			ScreenType = GUIDANCE;
 			DisplayGuidance ();
 		}
@@ -122,6 +131,7 @@ void MousePressed (int Button, int State, int x, int y) {
 
 	case GAME_ARCADE:
 	case GAME_CLASSIC:
+	case GAME_FRENZY:
 		if ((x > 5 * 92) && (x < 5 * 124) && (y > 5 * 5) && (y < 5 * 14)) { 
 			ScreenType = COMMON;
 			DisplayMenu ();

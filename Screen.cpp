@@ -26,7 +26,7 @@ void Screen::Draw (Painter MyPainter) {
 	}
 
 	MyPainter.Line (WIDTH * CELL_SIZE , 0, 
-					WIDTH * CELL_SIZE, HEIGHT * CELL_SIZE, GREEN);
+					WIDTH * CELL_SIZE, HEIGHT * CELL_SIZE, WHITE);
 
 	MyPainter.EmptyRectangle (PREVIEW_WINDOW_X, 
 							  PREVIEW_WINDOW_Y, 

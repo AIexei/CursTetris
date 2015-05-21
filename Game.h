@@ -19,8 +19,10 @@ class Painter;
 class Game {
 public: 
 	enum Direction { UP, DOWN, LEFT, RIGHT};
-	enum Mode {CLASSIC = 7, ARCADE = 12};
+	enum Mode {CLASSIC = 7, ARCADE = 16, FRENZY};
 
+	// game has 2 modes. 
+	// these are Arcade and Classic
 	Game (Mode);
 
 	// function to calculate the level
@@ -40,9 +42,10 @@ public:
 	// function, which processes the pressing
 	void KeyEvent (Direction);
 
+	// this function write the results to file
 	void SaveScore();
 
-	//...
+	// these functions allow you to get information about the game
 	char* ShowLevel ();
 	char* ShowLines ();
 	char* ShowScore ();

@@ -1,4 +1,4 @@
-#include <glut.h>
+#include <gl/glut.h>
 #include <string>
 #include "Painter.h"
 
@@ -28,7 +28,11 @@ void Painter::SetColor (Color MyColor) {
 		{0.00, 1.00, 0.00},		// green
 		{1.00, 1.00, 1.00},     // white
 		{0.58, 0.00, 0.82},     // dark violet
-		{0.75, 1.00, 0.24}		// olive
+		{0.75, 1.00, 0.24}, 	// olive
+		{0.00, 0.00, 0.50},		// navy blue
+		{0.00, 1.00, 0.50},     // spring
+		{0.54, 0.00, 0.00},     // vinous
+		{0.80, 0.77, 0.45} 	    // khaki
 	};
 
 	// set the brush color
@@ -69,6 +73,8 @@ void Painter::Line (int x1, int y1, int x2, int y2, Color LineColor) {
 
 void Painter::PrintText (int x, int y, char *text, Color TextColor) {
 	SetColor (TextColor);
+
+	// set position of the cursor
 	glRasterPos2d (x, y);
 
 	for (char *s = text; *s != '\0'; s++){

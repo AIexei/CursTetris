@@ -44,6 +44,7 @@ void Figures::DrawFigure (Painter MyPainter) {
 
 
 bool Figures::FigureArea (int Area_x, int Area_y) {
+	// graphic description
 	const char *Shapes [][4] = 
 	{
 		// O
@@ -102,7 +103,7 @@ bool Figures::FigureArea (int Area_x, int Area_y) {
 			"    "
 		},
 
-		// C
+		//  Ñ
 		{
 			" 00 ",
 			" 0  ",
@@ -136,9 +137,41 @@ bool Figures::FigureArea (int Area_x, int Area_y) {
 		
 		// P
 		{
+			"    ",
+			" 00 ",
+			" 000",
+			"    "
+		},
+
+		// B
+		{
+			"    ",
+			" 000",
+			" 00 ",
+			"    "
+		},
+
+		// M
+		{
+			" 0  ",
+			" 000",
+			" 0  ",
+			"    "
+		},
+
+		// R
+		{
 			"  0 ",
-			" 00 ",
-			" 00 ",
+			" 000",
+			" 0  ",
+			"    "
+		},
+
+		// A
+		{
+			" 0  ",
+			" 000",
+			"  0 ",
 			"    "
 		}
 
